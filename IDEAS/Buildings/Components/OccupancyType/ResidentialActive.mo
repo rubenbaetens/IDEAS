@@ -1,6 +1,6 @@
 within IDEAS.Buildings.Components.OccupancyType;
-record OfficeWork
-  "Typical office work."
+record ResidentialActive
+  "Typical active residential user."
   extends PartialOccupancyType(
     QlatPp=45,
     QsenPp=73,
@@ -27,4 +27,4 @@ Chapter 18, Internal Heat Gains; pages 18.4; Atlanta, USA, 2009.
 </li>
 </ul>
 </html>"));
-end OfficeWork;
+end ResidentialActive;
