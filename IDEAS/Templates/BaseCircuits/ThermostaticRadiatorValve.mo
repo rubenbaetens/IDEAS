@@ -7,7 +7,8 @@ model ThermostaticRadiatorValve
     redeclare Fluid.Actuators.Valves.TwoWayQuickOpening flowRegulator(
       allowFlowReversal=false,
       show_T=false,
-      filteredOpening=true));
+      filteredOpening=true,
+      from_dp=true));
 
   //Parameters
   parameter Real K = 1 "Gain of the TRV";

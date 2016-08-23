@@ -1,7 +1,11 @@
 within IDEAS.Templates.BaseCircuits;
 model BalancingValve
   //Extensions
-  extends Interfaces.PartialCircuitBalancingValve(final useBalancingValve=true);
+  extends Interfaces.PartialCircuitBalancingValve(final useBalancingValve=true,
+      balancingValve(allowFlowReversal=true, use_dh=allowFlowReversal,
+      show_T=false,
+      from_dp=true));
+
 equation
   if not includePipes then
     if not measureSupplyT then
