@@ -30,16 +30,18 @@ record LumpedVolumeDeclarations "Declarations for lumped volumes"
     "Start value of mass fractions m_i/m"
     annotation (Dialog(tab="Initialization", enable=Medium.nXi > 0));
   parameter Medium.ExtraProperty C_start[Medium.nC](
-       quantity=Medium.extraPropertiesNames)=fill(0, Medium.nC)
+       quantity=Medium.extraPropertiesNames)= Medium.C_nominal
     "Start value of trace substances"
     annotation (Dialog(tab="Initialization", enable=Medium.nC > 0));
   parameter Medium.ExtraProperty C_nominal[Medium.nC](
-       quantity=Medium.extraPropertiesNames) = fill(1E-2, Medium.nC)
+       quantity=Medium.extraPropertiesNames) = Medium.C_nominal
     "Nominal value of trace substances. (Set to typical order of magnitude.)"
    annotation (Dialog(tab="Initialization", enable=Medium.nC > 0));
   parameter Real mSenFac(min=0.1)=1
     "Factor for scaling the sensible thermal mass of the volume"
     annotation(Dialog(tab="Dynamics"));
+
+
 
 annotation (preferredView="info",
 Documentation(info="<html>

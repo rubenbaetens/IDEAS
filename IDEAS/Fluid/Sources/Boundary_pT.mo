@@ -26,7 +26,7 @@ model Boundary_pT
     "Fixed value of composition"
     annotation (Dialog(enable = (not use_X_in) and Medium.nXi > 0));
   parameter Medium.ExtraProperty C[Medium.nC](
-    final quantity=Medium.extraPropertiesNames) = fill(0, Medium.nC)
+    final quantity=Medium.extraPropertiesNames) = Medium.C_nominal
     "Fixed values of trace substances"
     annotation (Dialog(enable = (not use_C_in) and Medium.nC > 0));
   Modelica.Blocks.Interfaces.RealInput p_in(final unit="Pa") if use_p_in
