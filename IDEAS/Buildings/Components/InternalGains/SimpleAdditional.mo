@@ -1,8 +1,8 @@
 within IDEAS.Buildings.Components.InternalGains;
-model Simple
-  "Constant sensible, latent and CO2 heat production per person"
+model SimpleAdditional
+  "Externa loads + constant sensible, latent and CO2 heat production per person"
   extends BaseClasses.PartialOccupancyGains(
-                           final requireInput=true);
+                           final requireInput=true, final requireWatInput = true);
   parameter Modelica.SIunits.Power QlatPp = occupancyType.QlatPp
     "Latent heat production per person, default from Ashrae Fundamentals: 'Seated, very light work'";
   parameter Modelica.SIunits.Power QsenPp = occupancyType.QsenPp
@@ -48,9 +48,10 @@ protected
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloRad(final
       alpha=0) "Prescribed heat flow rate for radiative sensible heat"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
+public
+  Modelica.Blocks.Math.Sum sumWat(nin=2)
+    annotation (Placement(transformation(extent={{40,50},{60,70}})));
 equation
-  connect(gaiWat.y, mWat_flow)
-    annotation (Line(points={{13,60},{106,60},{106,60}}, color={0,0,127}));
   connect(gaiCO2.y, C_flow)
     annotation (Line(points={{13,20},{60,20},{106,20}}, color={0,0,127}));
   connect(preHeaFloCon.port, portCon)
@@ -78,6 +79,12 @@ equation
   connect(gain.u, gaiHea.y)
     annotation (Line(points={{-10,-60},{-30,-60},{-30,-40},{-40,-40},{-40,-40},
           {-40,-40},{-40,-40},{-40,-40},{-39,-40}},          color={0,0,127}));
+  connect(mWatAdd_flow, sumWat.u[1]) annotation (Line(points={{-110,40},{-44,40},
+          {30,40},{30,59},{38,59}}, color={0,0,127}));
+  connect(gaiWat.y, sumWat.u[2])
+    annotation (Line(points={{13,60},{38,60},{38,61}}, color={0,0,127}));
+  connect(sumWat.y, mWat_flow)
+    annotation (Line(points={{61,60},{106,60},{106,60}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>This occupancy model assumes a constant latent and sensible load per person. We assume this heat gain is caused by the metabolic combustion of suger, resulting into a corresponding CO2 production. The CO2 mass flow rate is added only if the Medium contains CO2. Latent heat is only added if the Medium is a moist air medium. Sensible heat is emitted both as convective and radiant heat using a fixed weighing factor.</p>
 </html>",
@@ -89,4 +96,4 @@ First implementation
 </li>
 </ul>
 </html>"));
-end Simple;
+end SimpleAdditional;

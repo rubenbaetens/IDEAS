@@ -11,6 +11,7 @@ partial model PartialOccupancyGains "Partial model for occupant internal gains"
     constrainedby IDEAS.Buildings.Components.OccupancyType.PartialOccupancyType
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
   parameter Boolean requireInput = false "Set to true to enable the input n";
+  parameter Boolean requireWatInput = false "Set to true to enable the input mWatAdd_flow";
 
   Modelica.Blocks.Interfaces.RealOutput mWat_flow
     "Water vapor mass flow rate due to occupants"
@@ -21,7 +22,8 @@ partial model PartialOccupancyGains "Partial model for occupant internal gains"
   Modelica.Blocks.Interfaces.RealOutput C_flow[max(Medium.nC,1)]
     "Trace substance mass flow rate due to occupants"
     annotation (Placement(transformation(extent={{96,10},{116,30}})));
-  Modelica.Blocks.Interfaces.RealInput nOcc if requireInput "Number of occupants"
+  Modelica.Blocks.Interfaces.RealInput nOcc if requireInput
+    "Number of occupants"
     annotation (Placement(transformation(extent={{-130,-20},{-90,20}})));
 
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo(final
@@ -31,6 +33,10 @@ partial model PartialOccupancyGains "Partial model for occupant internal gains"
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a portRad
     "Port for radiative sensible heat transfer due to occupants"
     annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
+  Modelica.Blocks.Interfaces.RealInput mWatAdd_flow if
+                                               requireWatInput
+    "Additional water vapour flow"
+    annotation (Placement(transformation(extent={{-130,20},{-90,60}})));
 equation
   connect(preHeaFlo.port, sim.Qgai);
   connect(Qgai.y, preHeaFlo.Q_flow);

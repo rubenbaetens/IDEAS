@@ -2,8 +2,8 @@ within IDEAS.Buildings.Components.OccupancyType;
 record ResidentialActive
   "Typical active residential user."
   extends PartialOccupancyType(
-    QlatPp=45,
-    QsenPp=73,
+    QlatPp=37.5,
+    QsenPp=60.8,
     radFra=0.6,
     ICl=0.7);
   annotation (Documentation(revisions="<html>

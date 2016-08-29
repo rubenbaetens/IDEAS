@@ -124,8 +124,14 @@ public
     "Number of occupants"
     annotation (Placement(transformation(extent={{128,12},{88,52}})));
 
+  Modelica.Blocks.Interfaces.RealInput mWatAdd_flow if
+                                               intGai.requireWatInput
+    "Additional moisture flow"
+    annotation (Placement(transformation(extent={{128,40},{88,80}})));
 initial equation
   Q_design=QInf_design+QRH_design+QTra_design; //Total design load for zone (additional ventilation losses are calculated in the ventilation system)
+
+
 
 
 equation
@@ -244,6 +250,7 @@ equation
           26},{4,-60},{-46.2,-60}}, color={191,0,0}));
   connect(intGai.nOcc, nOcc)
     annotation (Line(points={{61,32},{61,32},{108,32}}, color={0,0,127}));
+ connect(intGai.mWatAdd_flow, mWatAdd_flow);
   connect(intGai.mWat_flow, airModel.mWat_flow) annotation (Line(points={{39.4,38},
           {39.4,38},{-19.2,38}}, color={0,0,127}));
   connect(intGai.C_flow, airModel.C_flow)

@@ -2,8 +2,8 @@ within IDEAS.Buildings.Components.OccupancyType;
 record ResidentialAsleep
   "Typical sleeping residential user."
   extends PartialOccupancyType(
-    QlatPp=45,
-    QsenPp=73,
+    QlatPp=30,
+    QsenPp=48,
     radFra=0.6,
     ICl=0.7);
   annotation (Documentation(revisions="<html>
